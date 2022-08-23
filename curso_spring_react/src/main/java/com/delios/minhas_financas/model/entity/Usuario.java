@@ -1,12 +1,11 @@
 package com.delios.minhas_financas.model.entity;
 
 
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.Objects;
-
+@Builder
 @Data
 @Entity
 public class Usuario {
