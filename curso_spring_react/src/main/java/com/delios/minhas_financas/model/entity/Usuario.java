@@ -1,12 +1,17 @@
 package com.delios.minhas_financas.model.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+@NoArgsConstructor
 @Builder
 @Data
+@AllArgsConstructor
 @Entity
 public class Usuario {
     @Id
