@@ -1,10 +1,13 @@
 package com.delios.minhas_financas.services;
 
+import com.delios.minhas_financas.exception.ErroAutenticacao;
 import com.delios.minhas_financas.exception.RegraNegocioException;
 import com.delios.minhas_financas.model.entity.Usuario;
 import com.delios.minhas_financas.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 
 @Service
@@ -18,7 +21,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario autenticar(String email, String senha) {
-        return null;
+        Optional<Usuario> usuario=repository.findByEmail(email);
+        if(!usuario.isPresent()){
+            throw new ErroAutenticacao("Usuario nao encontrado");
+        }
+        if(usuario.get().getSenha().equals(senha)){
+            throw new ErroAutenticacao("senha invalida");
+        }
+        return usuario.get();
     }
 
     @Override
