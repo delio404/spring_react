@@ -25,7 +25,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if(!usuario.isPresent()){
             throw new ErroAutenticacao("Usuario nao encontrado");
         }
-        if(usuario.get().getSenha().equals(senha)){
+        if(!usuario.get().getSenha().equals(senha)){
             throw new ErroAutenticacao("senha invalida");
         }
         return usuario.get();
