@@ -2,6 +2,7 @@ package com.delios.minhas_financas.apiresource;
 
 
 import com.delios.minhas_financas.dto.UsuarioDto;
+import com.delios.minhas_financas.exception.ErroAutenticacao;
 import com.delios.minhas_financas.exception.RegraNegocioException;
 import com.delios.minhas_financas.model.entity.Usuario;
 import com.delios.minhas_financas.services.UsuarioService;
@@ -19,6 +20,16 @@ public class UsuarioResource {
     private UsuarioService usuarioService;
     private UsuarioResource(UsuarioService usuarioService){
         this.usuarioService= usuarioService;
+    }
+    @PostMapping("/autenticar")
+    public ResponseEntity autenticar(@RequestBody UsuarioDto dto) {
+        try {
+            Usuario usuarioAutenticado= usuarioService.autenticar(dto.getEmail(),dto.getSenha());
+            return ResponseEntity.ok(usuarioAutenticado);
+        }catch (ErroAutenticacao e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
     @PostMapping
