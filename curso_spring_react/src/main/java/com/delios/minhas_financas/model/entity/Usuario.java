@@ -1,13 +1,17 @@
 package com.delios.minhas_financas.model.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Objects;
 
+@NoArgsConstructor
+@Builder
 @Data
+@AllArgsConstructor
 @Entity
 public class Usuario {
     @Id
