@@ -6,6 +6,7 @@ import com.delios.minhas_financas.repository.LancamentoRepository;
 import com.delios.minhas_financas.services.LancamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,8 +20,10 @@ public class LancamentoServiceImpl implements LancamentoService {
     }
 
     @Override
+    @Transactional
     public Lancamento salvar(Lancamento lancamento) {
-        return null;
+
+        return lancamentoRepository.save(lancamento);
     }
 
     @Override
