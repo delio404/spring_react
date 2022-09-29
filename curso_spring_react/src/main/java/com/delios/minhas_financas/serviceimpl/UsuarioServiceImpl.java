@@ -1,9 +1,10 @@
-package com.delios.minhas_financas.services;
+package com.delios.minhas_financas.serviceimpl;
 
 import com.delios.minhas_financas.exception.ErroAutenticacao;
 import com.delios.minhas_financas.exception.RegraNegocioException;
 import com.delios.minhas_financas.model.entity.Usuario;
 import com.delios.minhas_financas.repository.UsuarioRepository;
+import com.delios.minhas_financas.services.UsuarioService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
