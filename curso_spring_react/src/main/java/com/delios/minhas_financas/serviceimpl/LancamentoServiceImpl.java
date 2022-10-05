@@ -4,7 +4,10 @@ import com.delios.minhas_financas.enums.StatusLancamento;
 import com.delios.minhas_financas.model.entity.Lancamento;
 import com.delios.minhas_financas.repository.LancamentoRepository;
 import com.delios.minhas_financas.services.LancamentoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,8 +45,13 @@ public class LancamentoServiceImpl implements LancamentoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Lancamento> buscar(Lancamento lancamentofiltro) {
-        return null;
+        Example example= Example.of(lancamentofiltro,
+                ExampleMatcher.matching()
+                        .withIgnoreCase()
+                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING));
+        return lancamentoRepository.findAll(example);
     }
 
     @Override
