@@ -21,7 +21,7 @@ public class UsuarioResource {
 
     private final UsuarioService usuarioService;
     @PostMapping("/autenticar")
-    public ResponseEntity autenticar(@RequestBody UsuarioDto dto) {
+    public ResponseEntity<?> autenticar(@RequestBody UsuarioDto dto) {
         try {
             Usuario usuarioAutenticado= usuarioService.autenticar(dto.getEmail(),dto.getSenha());
             return ResponseEntity.ok(usuarioAutenticado);
@@ -32,7 +32,7 @@ public class UsuarioResource {
     }
 
     @PostMapping
-    public ResponseEntity salvar(@RequestBody UsuarioDto dto){
+    public ResponseEntity<?> salvar(@RequestBody UsuarioDto dto){
         Usuario usuario=Usuario.builder()
                 .nome(dto.getNome())
                 .email(dto.getEmail())
