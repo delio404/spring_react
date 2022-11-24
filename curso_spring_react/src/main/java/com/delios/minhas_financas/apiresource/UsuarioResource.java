@@ -6,6 +6,7 @@ import com.delios.minhas_financas.exception.ErroAutenticacao;
 import com.delios.minhas_financas.exception.RegraNegocioException;
 import com.delios.minhas_financas.model.entity.Usuario;
 import com.delios.minhas_financas.services.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/users{id}")
 @RestController
+@RequiredArgsConstructor
 public class UsuarioResource {
 
-    private UsuarioService usuarioService;
-    private UsuarioResource(UsuarioService usuarioService){
-        this.usuarioService= usuarioService;
-    }
+    private final UsuarioService usuarioService;
     @PostMapping("/autenticar")
     public ResponseEntity autenticar(@RequestBody UsuarioDto dto) {
         try {
