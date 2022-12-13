@@ -1,6 +1,7 @@
 package com.delios.minhas_financas.serviceimpl;
 
 import com.delios.minhas_financas.enums.StatusLancamento;
+import com.delios.minhas_financas.enums.TipoLancamento;
 import com.delios.minhas_financas.exception.RegraNegocioException;
 import com.delios.minhas_financas.model.entity.Lancamento;
 import com.delios.minhas_financas.repository.LancamentoRepository;
@@ -92,5 +93,23 @@ public class LancamentoServiceImpl implements LancamentoService {
     @Override
     public Optional<Lancamento> obterPorId(Long id) {
         return lancamentoRepository.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public BigDecimal obterSaldoPorUsuario(Long id) {
+
+        BigDecimal receitas= lancamentoRepository.obterSaldoPorTipoLancamentoEUsuario(id, TipoLancamento.RECEITA.name());
+
+        BigDecimal despesas= lancamentoRepository.obterSaldoPorTipoLancamentoEUsuario(id,TipoLancamento.DESPESA.name());
+
+        if (receitas==null){
+            receitas= BigDecimal.ZERO;
+        }
+
+        if (despesas==null){
+            despesas= BigDecimal.ZERO;
+        }
+        return receitas.subtract(despesas);
     }
 }
