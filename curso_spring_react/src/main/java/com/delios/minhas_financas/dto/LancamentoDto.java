@@ -2,6 +2,7 @@ package com.delios.minhas_financas.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 

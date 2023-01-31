@@ -27,7 +27,7 @@ public class LancamentoResource {
     private final UsuarioService usuarioService;
 
 
-    @GetMapping
+    @GetMapping("/filtrar")
     public ResponseEntity<?>  buscar(
 //            poderia simplifiacar dessa maneira o requestParam detalhes nesse metodo todos seriam opcionais
 //            @RequestParam java.util.Map<String, String> params
@@ -43,6 +43,7 @@ public class LancamentoResource {
         lancamentoFiltro.setAno(ano);
 
         Optional<Usuario> usuario = usuarioService.obterPorId(idUsuario);
+        System.out.println(idUsuario);
         if (!usuario.isPresent()) {
             return ResponseEntity.badRequest().body("Nao foi possivel realizar a consulta. Usuario nao encontrado para Id informado");
         } else {
@@ -51,6 +52,7 @@ public class LancamentoResource {
         List<Lancamento> lancamentos = service.buscar(lancamentoFiltro);
         return ResponseEntity.ok(lancamentos);
     }
+
    
     @PostMapping
     public ResponseEntity<?> salvar(@RequestBody LancamentoDto dto) {

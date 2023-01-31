@@ -24,7 +24,7 @@ public class Lancamento {
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     private BigDecimal valor;
@@ -32,9 +32,11 @@ public class Lancamento {
     @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class )
     private LocalDate dataCadastro;
 
+    @Column(name = "tipo")
     @Enumerated(value = EnumType.STRING)
     private TipoLancamento tipo;
 
+    @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
     private StatusLancamento status;
 

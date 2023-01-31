@@ -8,6 +8,7 @@ import com.delios.minhas_financas.model.entity.Usuario;
 import com.delios.minhas_financas.services.LancamentoService;
 import com.delios.minhas_financas.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,19 @@ import javax.swing.text.html.Option;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-@RequestMapping("/api/users{id}")
+@RequestMapping("/api/usuarios")
 @RestController
 @RequiredArgsConstructor
 public class UsuarioResource {
 
     private final UsuarioService usuarioService;
+    @Autowired
+    public UsuarioResource(LancamentoService lancamentoService, UsuarioService usuarioService){
+        this.lancamentoService= lancamentoService;
+        this.usuarioService= usuarioService;
+    }
+
+
     private  final LancamentoService lancamentoService;
     @PostMapping("/autenticar")
     public ResponseEntity<?> autenticar(@RequestBody UsuarioDto dto) {
@@ -53,6 +61,7 @@ public class UsuarioResource {
     public ResponseEntity<?> obterSaldo(@PathVariable ("id") Long id){
         Optional<Usuario> usuario=usuarioService.obterPorId(id);
         if(!usuario.isPresent()){
+            System.out.println(usuario);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         BigDecimal saldo= lancamentoService.obterSaldoPorUsuario(id);
